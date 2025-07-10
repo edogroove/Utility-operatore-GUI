@@ -11,8 +11,8 @@ BUTTON_TEXT = "#ffffff"
 TITLE_COLOR = "#000000"
 ERROR_COLOR = "#d32f2f"
 RESULT_COLOR = "#000000"
-FONT = ("Segoe UI", 12)
-TITLE_FONT = ("Segoe UI", 25, "bold")
+FONT = ("Segoe UI", 11)
+TITLE_FONT = ("Segoe UI", 23, "bold")
 SUBTITLE_FONT = ("Segoe UI", 14, "bold")
 FOOTER_FONT = ("Segoe UI", 12, "italic")
 

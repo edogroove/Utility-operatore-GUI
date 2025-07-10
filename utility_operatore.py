@@ -65,7 +65,7 @@ class UtilityOperatoreApp:
             ttk.Button(menu_frame, text=text, command=func, width=39, style='TButton').pack(pady=6)
 
         # Footer
-        ttk.Label(root, text="Nuovo Pignone", style='Footer.TLabel').pack(side='bottom', pady=8)
+        ttk.Label(root, text="Nuovo Pignone (V1.0)", style='Footer.TLabel').pack(side='bottom', pady=8)
 
         # Mostra la prima opzione di default
         self.vt_ui()

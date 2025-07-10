@@ -2,44 +2,70 @@ import tkinter as tk
 from tkinter import ttk
 import math
 
+# Palette colori
+BG_COLOR = "#BABABA"
+FRAME_COLOR = "#A0A0A0"
+PRIMARY_COLOR = "#000000"
+BUTTON_COLOR = "#4BA485"
+BUTTON_TEXT = "#ffffff"
+TITLE_COLOR = "#000000"
+ERROR_COLOR = "#d32f2f"
+RESULT_COLOR = "#000000"
+FONT = ("Segoe UI", 14)
+TITLE_FONT = ("Segoe UI", 25, "bold")
+SUBTITLE_FONT = ("Segoe UI", 14, "bold")
+FOOTER_FONT = ("Segoe UI", 12, "italic")
+
 class UtilityOperatoreApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Utility Operatore v1.3")
+        self.root.title("Utility Operatore")
         self.root.geometry("900x500")
         self.root.resizable(True, True)
+        self.root.configure(bg=BG_COLOR)
         style = ttk.Style()
         style.theme_use('clam')
+        style.configure('TFrame', background=BG_COLOR)
+        style.configure('Main.TFrame', background=FRAME_COLOR, relief="flat", borderwidth=1)
+        style.configure('Menu.TFrame', background=BG_COLOR)
+        style.configure('TLabel', background=BG_COLOR, font=FONT)
+        style.configure('Title.TLabel', background=BG_COLOR, foreground=TITLE_COLOR, font=TITLE_FONT)
+        style.configure('Subtitle.TLabel', background=BG_COLOR, foreground=PRIMARY_COLOR, font=SUBTITLE_FONT)
+        style.configure('Result.TLabel', background=BG_COLOR, foreground=RESULT_COLOR, font=FONT)
+        style.configure('Error.TLabel', background=BG_COLOR, foreground=ERROR_COLOR, font=FONT)
+        style.configure('Footer.TLabel', background=BG_COLOR, font=FOOTER_FONT)
+        style.configure('TButton', font=FONT, padding=6, background=BUTTON_COLOR, foreground=BUTTON_TEXT)
+        style.map('TButton', background=[('active', PRIMARY_COLOR)], foreground=[('active', BUTTON_TEXT)])
 
         # Titolo
-        ttk.Label(root, text="Utility Operatore v1.3", font=("Arial", 18, "bold")).pack(pady=10)
-        ttk.Label(root, text="Scegli un'opzione:", font=("Arial", 12)).pack(pady=5)
+        ttk.Label(root, text="Utility Operatore", style='Title.TLabel').pack(pady=(18, 2))
+        ttk.Label(root, text="Scegli un'opzione:", style='Subtitle.TLabel').pack(pady=(0, 10))
 
         # Frame principale
-        main_frame = ttk.Frame(root)
-        main_frame.pack(fill='both', expand=True, padx=10, pady=5)
+        main_frame = ttk.Frame(root, style='Main.TFrame')
+        main_frame.pack(fill='both', expand=True, padx=18, pady=10)
 
         # Menu laterale
-        menu_frame = ttk.Frame(main_frame)
-        menu_frame.pack(side='left', fill='y', padx=(0, 15))
+        menu_frame = ttk.Frame(main_frame, style='Menu.TFrame')
+        menu_frame.pack(side='left', fill='y', padx=(0, 25), pady=10)
 
         # Area dinamica
-        self.dynamic_frame = ttk.Frame(main_frame)
-        self.dynamic_frame.pack(side='left', fill='both', expand=True)
+        self.dynamic_frame = ttk.Frame(main_frame, style='Main.TFrame')
+        self.dynamic_frame.pack(side='left', fill='both', expand=True, padx=10, pady=10)
 
         self.options = [
-            ("1. Ottieni velocità di taglio vt (m/min)", self.vt_ui),
-            ("2. Ottieni avanzamento al tagliente fz (mm/giro)", self.av_ui),
-            ("3. Calcola n giri S (giri/min)", self.ss_ui),
-            ("4. Calcola avanzamento F (mm/giro)", self.calc_av_ui),
-            ("5. Ricava tutti i parametri", self.calc_tutto_ui),
-            ("6. Calcolo distanza del golfare di riferimento", self.calc_golf_ui),
+            ("Ottieni velocità di taglio vt (m/min)", self.vt_ui),
+            ("Ottieni avanzamento al tagliente fz (mm/giro)", self.av_ui),
+            ("Calcola n giri S (giri/min)", self.ss_ui),
+            ("Calcola avanzamento F (mm/giro)", self.calc_av_ui),
+            ("Ricava tutti i parametri", self.calc_tutto_ui),
+            ("Calcolo distanza del golfare di riferimento", self.calc_golf_ui),
         ]
         for i, (text, func) in enumerate(self.options):
-            ttk.Button(menu_frame, text=text, command=func, width=32).pack(pady=3)
+            ttk.Button(menu_frame, text=text, command=func, width=38, style='TButton').pack(pady=6)
 
         # Footer
-        ttk.Label(root, text="By Edoardo Nanni", font=("Arial", 9, "italic")).pack(side='bottom', pady=5)
+        ttk.Label(root, text="Nuovo Pignone", style='Footer.TLabel').pack(side='bottom', pady=8)
 
         # Mostra la prima opzione di default
         self.vt_ui()
@@ -56,18 +82,18 @@ class UtilityOperatoreApp:
 
     def vt_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Calcola velocità di taglio vt", font=("Arial", 13, "bold")).pack(pady=5)
-        form = ttk.Frame(self.dynamic_frame)
-        form.pack(pady=10)
-        ttk.Label(form, text="Diametro (mm):").grid(row=0, column=0, sticky='e', pady=3)
-        diam_entry = ttk.Entry(form)
-        diam_entry.grid(row=0, column=1, pady=3)
-        ttk.Label(form, text="Giri S:").grid(row=1, column=0, sticky='e', pady=3)
-        giri_entry = ttk.Entry(form)
-        giri_entry.grid(row=1, column=1, pady=3)
-        result_label = ttk.Label(self.dynamic_frame, text="", font=("Arial", 11))
-        result_label.pack(pady=8)
-        self.error_label = ttk.Label(self.dynamic_frame, text="", foreground="red")
+        ttk.Label(self.dynamic_frame, text="Calcola velocità di taglio", style='Subtitle.TLabel').pack(pady=8)
+        form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
+        form.pack(pady=16)
+        ttk.Label(form, text="Diametro utensile (mm):", style='TLabel').grid(row=0, column=0, sticky='e', pady=6, padx=4)
+        diam_entry = ttk.Entry(form, font=FONT)
+        diam_entry.grid(row=0, column=1, pady=6, padx=4)
+        ttk.Label(form, text="Giri S:", style='TLabel').grid(row=1, column=0, sticky='e', pady=6, padx=4)
+        giri_entry = ttk.Entry(form, font=FONT)
+        giri_entry.grid(row=1, column=1, pady=6, padx=4)
+        result_label = ttk.Label(self.dynamic_frame, text="", style='Result.TLabel')
+        result_label.pack(pady=10)
+        self.error_label = ttk.Label(self.dynamic_frame, text="", style='Error.TLabel')
         self.error_label.pack()
         def calcola():
             self.clear_error()
@@ -78,25 +104,26 @@ class UtilityOperatoreApp:
                 result_label.config(text=f"vt = {ris:.2f} m/min")
             except Exception:
                 self.show_error("Inserisci tutti i valori correttamente.")
-        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola).pack(pady=5)
+        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola, style='TButton').pack(pady=8)
 
     def av_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Calcola avanzamento al tagliente fz", font=("Arial", 13, "bold")).pack(pady=5)
-        form = ttk.Frame(self.dynamic_frame)
-        form.pack(pady=10)
-        ttk.Label(form, text="Avanzamento F:").grid(row=0, column=0, sticky='e', pady=3)
-        f_entry = ttk.Entry(form)
-        f_entry.grid(row=0, column=1, pady=3)
-        ttk.Label(form, text="Giri S:").grid(row=1, column=0, sticky='e', pady=3)
-        s_entry = ttk.Entry(form)
-        s_entry.grid(row=1, column=1, pady=3)
-        ttk.Label(form, text="Numero dei taglienti:").grid(row=2, column=0, sticky='e', pady=3)
-        t_entry = ttk.Entry(form)
-        t_entry.grid(row=2, column=1, pady=3)
-        result_label = ttk.Label(self.dynamic_frame, text="", font=("Arial", 11))
-        result_label.pack(pady=8)
-        self.error_label = ttk.Label(self.dynamic_frame, text="", foreground="red")
+        ttk.Label(self.dynamic_frame, text="Calcola avanzamento al tagliente", style='Subtitle.TLabel').pack(pady=8)
+        form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
+        form.pack(pady=16)
+        ttk.Label(form, text="Avanzamento F:", style='TLabel').grid(row=0, column=0, sticky='e', pady=6, padx=4)
+        f_entry = ttk.Entry(form, font=FONT)
+        f_entry.grid(row=0, column=1, pady=6, padx=4)
+        ttk.Label(form, text="Giri S:", style='TLabel').grid(row=1, column=0, sticky='e', pady=6, padx=4)
+        s_entry = ttk.Entry(form, font=FONT)
+        s_entry.grid(row=1, column=1, pady=6, padx=4)
+        ttk.Label(form, text="Numero dei taglienti:", style='TLabel').grid(row=2, column=0, sticky='e', pady=6, padx=4)
+        t_entry = ttk.Entry(form, font=FONT)
+        t_entry.insert(0, "1")
+        t_entry.grid(row=2, column=1, pady=6, padx=4)
+        result_label = ttk.Label(self.dynamic_frame, text="", style='Result.TLabel')
+        result_label.pack(pady=10)
+        self.error_label = ttk.Label(self.dynamic_frame, text="", style='Error.TLabel')
         self.error_label.pack()
         def calcola():
             self.clear_error()
@@ -108,22 +135,22 @@ class UtilityOperatoreApp:
                 result_label.config(text=f"fz = {ris:.3f} mm/giro per tagliente")
             except Exception:
                 self.show_error("Inserisci tutti i valori correttamente.")
-        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola).pack(pady=5)
+        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola, style='TButton').pack(pady=8)
 
     def ss_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Calcola n giri S", font=("Arial", 13, "bold")).pack(pady=5)
-        form = ttk.Frame(self.dynamic_frame)
-        form.pack(pady=10)
-        ttk.Label(form, text="Diametro (mm):").grid(row=0, column=0, sticky='e', pady=3)
-        diam_entry = ttk.Entry(form)
-        diam_entry.grid(row=0, column=1, pady=3)
-        ttk.Label(form, text="Velocità di taglio vt (m/min):").grid(row=1, column=0, sticky='e', pady=3)
-        vt_entry = ttk.Entry(form)
-        vt_entry.grid(row=1, column=1, pady=3)
-        result_label = ttk.Label(self.dynamic_frame, text="", font=("Arial", 11))
-        result_label.pack(pady=8)
-        self.error_label = ttk.Label(self.dynamic_frame, text="", foreground="red")
+        ttk.Label(self.dynamic_frame, text="Calcola n giri S", style='Subtitle.TLabel').pack(pady=8)
+        form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
+        form.pack(pady=16)
+        ttk.Label(form, text="Diametro (mm):", style='TLabel').grid(row=0, column=0, sticky='e', pady=6, padx=4)
+        diam_entry = ttk.Entry(form, font=FONT)
+        diam_entry.grid(row=0, column=1, pady=6, padx=4)
+        ttk.Label(form, text="Velocità di taglio vt (m/min):", style='TLabel').grid(row=1, column=0, sticky='e', pady=6, padx=4)
+        vt_entry = ttk.Entry(form, font=FONT)
+        vt_entry.grid(row=1, column=1, pady=6, padx=4)
+        result_label = ttk.Label(self.dynamic_frame, text="", style='Result.TLabel')
+        result_label.pack(pady=10)
+        self.error_label = ttk.Label(self.dynamic_frame, text="", style='Error.TLabel')
         self.error_label.pack()
         def calcola():
             self.clear_error()
@@ -134,22 +161,22 @@ class UtilityOperatoreApp:
                 result_label.config(text=f"S = {ris:.2f} giri/min")
             except Exception:
                 self.show_error("Inserisci tutti i valori correttamente.")
-        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola).pack(pady=5)
+        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola, style='TButton').pack(pady=8)
 
     def calc_av_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Calcola avanzamento F", font=("Arial", 13, "bold")).pack(pady=5)
-        form = ttk.Frame(self.dynamic_frame)
-        form.pack(pady=10)
-        ttk.Label(form, text="Giri (S):").grid(row=0, column=0, sticky='e', pady=3)
-        giri_entry = ttk.Entry(form)
-        giri_entry.grid(row=0, column=1, pady=3)
-        ttk.Label(form, text="Avanzamento mm/giro:").grid(row=1, column=0, sticky='e', pady=3)
-        av_entry = ttk.Entry(form)
-        av_entry.grid(row=1, column=1, pady=3)
-        result_label = ttk.Label(self.dynamic_frame, text="", font=("Arial", 11))
-        result_label.pack(pady=8)
-        self.error_label = ttk.Label(self.dynamic_frame, text="", foreground="red")
+        ttk.Label(self.dynamic_frame, text="Calcola avanzamento F", style='Subtitle.TLabel').pack(pady=8)
+        form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
+        form.pack(pady=16)
+        ttk.Label(form, text="Giri (S):", style='TLabel').grid(row=0, column=0, sticky='e', pady=6, padx=4)
+        giri_entry = ttk.Entry(form, font=FONT)
+        giri_entry.grid(row=0, column=1, pady=6, padx=4)
+        ttk.Label(form, text="Avanzamento mm/giro:", style='TLabel').grid(row=1, column=0, sticky='e', pady=6, padx=4)
+        av_entry = ttk.Entry(form, font=FONT)
+        av_entry.grid(row=1, column=1, pady=6, padx=4)
+        result_label = ttk.Label(self.dynamic_frame, text="", style='Result.TLabel')
+        result_label.pack(pady=10)
+        self.error_label = ttk.Label(self.dynamic_frame, text="", style='Error.TLabel')
         self.error_label.pack()
         def calcola():
             self.clear_error()
@@ -160,13 +187,13 @@ class UtilityOperatoreApp:
                 result_label.config(text=f"F = {ris:.2f}")
             except Exception:
                 self.show_error("Inserisci tutti i valori correttamente.")
-        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola).pack(pady=5)
+        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola, style='TButton').pack(pady=8)
 
     def calc_tutto_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Ricava tutti i parametri", font=("Arial", 13, "bold")).pack(pady=5)
-        form = ttk.Frame(self.dynamic_frame)
-        form.pack(pady=10)
+        ttk.Label(self.dynamic_frame, text="Ricava tutti i parametri", style='Subtitle.TLabel').pack(pady=8)
+        form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
+        form.pack(pady=16)
         labels = [
             "Velocità di taglio desiderata (vt, m/min):",
             "Avanzamento a tagliente desiderato (fz, mm/giro):",
@@ -175,13 +202,13 @@ class UtilityOperatoreApp:
         ]
         entries = []
         for i, text in enumerate(labels):
-            ttk.Label(form, text=text).grid(row=i, column=0, sticky='e', pady=3)
-            e = ttk.Entry(form)
-            e.grid(row=i, column=1, pady=3)
+            ttk.Label(form, text=text, style='TLabel').grid(row=i, column=0, sticky='e', pady=6, padx=4)
+            e = ttk.Entry(form, font=FONT)
+            e.grid(row=i, column=1, pady=6, padx=4)
             entries.append(e)
-        result_label = ttk.Label(self.dynamic_frame, text="", font=("Arial", 11))
-        result_label.pack(pady=8)
-        self.error_label = ttk.Label(self.dynamic_frame, text="", foreground="red")
+        result_label = ttk.Label(self.dynamic_frame, text="", style='Result.TLabel')
+        result_label.pack(pady=10)
+        self.error_label = ttk.Label(self.dynamic_frame, text="", style='Error.TLabel')
         self.error_label.pack()
         def calcola():
             self.clear_error()
@@ -195,22 +222,22 @@ class UtilityOperatoreApp:
                 result_label.config(text=f"Giri S: {s:.2f}\nAvanzamento F: {f:.2f}")
             except Exception:
                 self.show_error("Inserisci tutti i valori correttamente.")
-        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola).pack(pady=5)
+        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola, style='TButton').pack(pady=8)
 
     def calc_golf_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Calcolo distanza golfare", font=("Arial", 13, "bold")).pack(pady=5)
-        form = ttk.Frame(self.dynamic_frame)
-        form.pack(pady=10)
-        ttk.Label(form, text="Diametro (mm):").grid(row=0, column=0, sticky='e', pady=3)
-        diam_entry = ttk.Entry(form)
-        diam_entry.grid(row=0, column=1, pady=3)
-        ttk.Label(form, text="Gradi:").grid(row=1, column=0, sticky='e', pady=3)
-        gradi_entry = ttk.Entry(form)
-        gradi_entry.grid(row=1, column=1, pady=3)
-        result_label = ttk.Label(self.dynamic_frame, text="", font=("Arial", 11))
-        result_label.pack(pady=8)
-        self.error_label = ttk.Label(self.dynamic_frame, text="", foreground="red")
+        ttk.Label(self.dynamic_frame, text="Calcolo distanza golfare", style='Subtitle.TLabel').pack(pady=8)
+        form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
+        form.pack(pady=16)
+        ttk.Label(form, text="Diametro (mm):", style='TLabel').grid(row=0, column=0, sticky='e', pady=6, padx=4)
+        diam_entry = ttk.Entry(form, font=FONT)
+        diam_entry.grid(row=0, column=1, pady=6, padx=4)
+        ttk.Label(form, text="Gradi:", style='TLabel').grid(row=1, column=0, sticky='e', pady=6, padx=4)
+        gradi_entry = ttk.Entry(form, font=FONT)
+        gradi_entry.grid(row=1, column=1, pady=6, padx=4)
+        result_label = ttk.Label(self.dynamic_frame, text="", style='Result.TLabel')
+        result_label.pack(pady=10)
+        self.error_label = ttk.Label(self.dynamic_frame, text="", style='Error.TLabel')
         self.error_label.pack()
         def calcola():
             self.clear_error()
@@ -221,7 +248,7 @@ class UtilityOperatoreApp:
                 result_label.config(text=f"Distanza dal golfare: {ris:.1f} mm")
             except Exception:
                 self.show_error("Inserisci tutti i valori correttamente.")
-        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola).pack(pady=5)
+        ttk.Button(self.dynamic_frame, text="Calcola", command=calcola, style='TButton').pack(pady=8)
 
 
 def main():

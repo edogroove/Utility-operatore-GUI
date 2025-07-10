@@ -20,8 +20,8 @@ class UtilityOperatoreApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Utility Operatore")
-        self.root.geometry("900x500")
-        self.root.resizable(True, True)
+        self.root.geometry("900x550")
+        self.root.resizable(False, False)
         self.root.configure(bg=BG_COLOR)
         style = ttk.Style()
         style.theme_use('clam')

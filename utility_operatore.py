@@ -11,7 +11,7 @@ BUTTON_TEXT = "#ffffff"
 TITLE_COLOR = "#000000"
 ERROR_COLOR = "#d32f2f"
 RESULT_COLOR = "#000000"
-FONT = ("Segoe UI", 14)
+FONT = ("Segoe UI", 12)
 TITLE_FONT = ("Segoe UI", 25, "bold")
 SUBTITLE_FONT = ("Segoe UI", 14, "bold")
 FOOTER_FONT = ("Segoe UI", 12, "italic")
@@ -62,7 +62,7 @@ class UtilityOperatoreApp:
             ("Calcolo distanza del golfare di riferimento", self.calc_golf_ui),
         ]
         for i, (text, func) in enumerate(self.options):
-            ttk.Button(menu_frame, text=text, command=func, width=42, style='TButton').pack(pady=6)
+            ttk.Button(menu_frame, text=text, command=func, width=39, style='TButton').pack(pady=6)
 
         # Footer
         ttk.Label(root, text="Nuovo Pignone", style='Footer.TLabel').pack(side='bottom', pady=8)

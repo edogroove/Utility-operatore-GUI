@@ -20,7 +20,7 @@ class UtilityOperatoreApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Utility Operatore")
-        self.root.geometry("900x560")
+        self.root.geometry("900x600")
         self.root.resizable(False, False)
         self.root.configure(bg=BG_COLOR)
         style = ttk.Style()
@@ -279,7 +279,7 @@ class UtilityOperatoreApp:
             'h': {3: 0, 6: 0, 10: 0, 18: 0, 30: 0, 50: 0, 80: 0, 120: 0, 180: 0, 250: 0, 315: 0, 400: 0, 500: 0},
         }
         
-        # Classi di tolleranza IT (in micrometri)
+        # Classi di tolleranza IT (in micrometri) - Valori corretti ISO 286
         self.it_grades = {
             1: {3: 0.8, 6: 1, 10: 1.2, 18: 1.5, 30: 1.5, 50: 2, 80: 2.5, 120: 3, 180: 4, 250: 5, 315: 6, 400: 7, 500: 8},
             2: {3: 1.2, 6: 1.5, 10: 1.8, 18: 2.2, 30: 2.2, 50: 3, 80: 3.5, 120: 4, 180: 5, 250: 6, 315: 7, 400: 8, 500: 9},

@@ -3,7 +3,7 @@ from tkinter import ttk
 import math
 
 # Palette colori
-BG_COLOR = "#BABABA"
+BG_COLOR = "#A0A0A0"
 FRAME_COLOR = "#A0A0A0"
 PRIMARY_COLOR = "#000000"
 BUTTON_COLOR = "#4BA485"
@@ -35,7 +35,7 @@ class UtilityOperatoreApp:
         style.configure('Error.TLabel', background=BG_COLOR, foreground=ERROR_COLOR, font=FONT)
         style.configure('Footer.TLabel', background=BG_COLOR, font=FOOTER_FONT)
         style.configure('TButton', font=FONT, padding=6, background=BUTTON_COLOR, foreground=BUTTON_TEXT)
-        style.map('TButton', background=[('active', PRIMARY_COLOR)], foreground=[('active', BUTTON_TEXT)])
+        style.map('TButton', background=[('active', "#459A7D")], foreground=[('active', BUTTON_TEXT)])
 
         # Titolo
         ttk.Label(root, text="Utility Operatore", style='Title.TLabel').pack(pady=(18, 2))
@@ -47,7 +47,7 @@ class UtilityOperatoreApp:
 
         # Menu laterale
         menu_frame = ttk.Frame(main_frame, style='Menu.TFrame')
-        menu_frame.pack(side='left', fill='y', padx=(0, 25), pady=10)
+        menu_frame.pack(side='left', fill='y', padx=(0, 25), pady=0)
 
         # Area dinamica
         self.dynamic_frame = ttk.Frame(main_frame, style='Main.TFrame')

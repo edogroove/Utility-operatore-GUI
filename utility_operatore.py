@@ -62,7 +62,7 @@ class UtilityOperatoreApp:
             ("Calcolo distanza del golfare di riferimento", self.calc_golf_ui),
         ]
         for i, (text, func) in enumerate(self.options):
-            ttk.Button(menu_frame, text=text, command=func, width=38, style='TButton').pack(pady=6)
+            ttk.Button(menu_frame, text=text, command=func, width=42, style='TButton').pack(pady=6)
 
         # Footer
         ttk.Label(root, text="Nuovo Pignone", style='Footer.TLabel').pack(side='bottom', pady=8)

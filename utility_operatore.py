@@ -82,7 +82,7 @@ class UtilityOperatoreApp:
 
     def vt_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Calcola velocità di taglio", style='Subtitle.TLabel').pack(pady=8)
+        ttk.Label(self.dynamic_frame, text="Ottieni velocità di taglio", style='Subtitle.TLabel').pack(pady=8)
         form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
         form.pack(pady=16)
         ttk.Label(form, text="Diametro utensile (mm):", style='TLabel').grid(row=0, column=0, sticky='e', pady=6, padx=4)
@@ -108,7 +108,7 @@ class UtilityOperatoreApp:
 
     def av_ui(self):
         self.clear_dynamic()
-        ttk.Label(self.dynamic_frame, text="Calcola avanzamento al tagliente", style='Subtitle.TLabel').pack(pady=8)
+        ttk.Label(self.dynamic_frame, text="Ottieni avanzamento al tagliente", style='Subtitle.TLabel').pack(pady=8)
         form = ttk.Frame(self.dynamic_frame, style='Main.TFrame')
         form.pack(pady=16)
         ttk.Label(form, text="Avanzamento F:", style='TLabel').grid(row=0, column=0, sticky='e', pady=6, padx=4)

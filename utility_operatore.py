@@ -12,7 +12,7 @@ TITLE_COLOR = "#000000"
 ERROR_COLOR = "#d32f2f"
 RESULT_COLOR = "#000000"
 FONT = ("Segoe UI", 11)
-TITLE_FONT = ("Segoe UI", 23, "bold")
+TITLE_FONT = ("Segoe UI", 22, "bold")
 SUBTITLE_FONT = ("Segoe UI", 14, "bold")
 FOOTER_FONT = ("Segoe UI", 12, "italic")
 
@@ -20,8 +20,8 @@ class UtilityOperatoreApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Utility Operatore")
-        self.root.geometry("900x600")
-        self.root.resizable(False, False)
+        self.root.geometry("900x650")
+        self.root.resizable(True, True)
         self.root.configure(bg=BG_COLOR)
         style = ttk.Style()
         style.theme_use('clam')

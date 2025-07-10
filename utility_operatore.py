@@ -20,7 +20,7 @@ class UtilityOperatoreApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Utility Operatore")
-        self.root.geometry("900x550")
+        self.root.geometry("900x560")
         self.root.resizable(False, False)
         self.root.configure(bg=BG_COLOR)
         style = ttk.Style()
